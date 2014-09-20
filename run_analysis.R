@@ -4,22 +4,23 @@
 #' Merges the training and test data in the aforementioned data set
 #' to extract its mean and standard deviation.
 #' 
-#' This script expects the uncompressed raw data set within the 
-#' `data-raw` folder and writes the output to the `data-tidy` folder
-#' in the current directory.
-#' 
-#' Delivered as part of coursera class  "Getting and Cleaning Data" 
-#' by Jeff Leek, PhD, Roger D. Peng, PhD, Brian Caffo, PhD
-#' https://class.coursera.org/getdata-007
-#' 
+#' This code is under the simplified BSD license; please refer to LICENSE.txt for details.
 
-# Configurations
+#--- Configurations
+
+#' Root folder of the input data relative to the current working directory. 
 inputFolder <- "data-raw/UCI HAR Dataset"
+
+#' Root folder of the output data relative to the current working directory
 outputFolder <- "data-tidy"
+
+#' File name of the resulting tidy data set.
+tidyValuesFilename <- "average-values.txt"
+
+#' The length (in bytes) of each numeric field in the fixed-width input data.
 numberWidth <- 16
 
-tidyValuesFilename <- "average-values.txt"
-tidyFeaturesFilename <- "average-features.txt"
+#---
 
 library(assertthat)
 library(data.table)
@@ -68,4 +69,4 @@ summarizedDataset <-   combineDatasets() %>%
                         summarise_each_q(funs(mean),selectedColumns$V2)
 summarizedNames <- c("subject_id","activity_label",paste("mean:",selectedColumns$V2))
 setnames(summarizedDataset,summarizedNames)
-write.table(summarizedDataset,file=paste(outputFolder,tidyValuesFilename,sep=.Platform$file.sep),row.names=FALSE)
+write.table(summarizedDataset,file=paste(outputFolder,tidyValuesFilename,sep=.Platform$file.sep),row.names=FALSE,sep="\t")
