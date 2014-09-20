@@ -14,17 +14,17 @@ The resulting data set is the mean of each measurement's average and standard de
 
 Column number	| Data type		| Description 
 ----------------|---------------|--------------
-1				| categorical	| The identifier of the subject performing the test
-2				| categorical	| The activity that the subject is performing
-3 – 79			| continuous	| The mean of each sensor values's mean and standard deviation given the test subject and activity.
+1				| categorical	| The identifier of the subject performing the test.
+2				| categorical	| The activity that the subject is performing.
+3 – 79			| continuous	| The mean of each sensor values's mean and standard deviation values given the test subject and activity.
 
 ## Data Processing steps
 
 Script `run_analysis.R` goes through these steps to tidy the raw data.
 
- 1. Reads both the training and test data sets of the original data and re-combine them into one data set.
- 2. Selects just the variables that are means or standard deviations.
- 3. Groups those sensor values by test subject and activity type to calculate their averages.
+ 1. Reads both the training and test data sets of the [original data](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones) and re-combine them into one data set.
+ 2. Selects just the variables that are means or standard deviations. That is whether the measurement column name contains either `mean` or `std`.
+ 3. Groups those sensor values by test subject and activity type and calculate their averages based on this partition.
  4. Lookups the activity labels and maps these labels to their numeric equivalent in the raw data sets.
  6. Re-label the sensor values to indicate that these are the means of the originals.
  5. Writes the output as a tab-separated file with headers.
